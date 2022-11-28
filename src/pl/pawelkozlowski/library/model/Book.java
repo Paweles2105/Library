@@ -35,28 +35,20 @@ public class Book extends Publication{
     }
 
     public String getIsbn() {
+
         return isbn;
     }
 
     public void setIsbn(String isbn) {
+
         this.isbn = isbn;
     }
 
 
     public String toString() {
-        return super.toString();
+
+        return super.toString() + "; "  + author + "; " +  pages + "; " +  isbn;
     }
-    @Override
-    public void printInfo() {
-        String info = getTitle() + "; " + author + "; " + getYear()
-                + "; " + pages + "; " + getPublisher();
 
-        if(isbn != null) {
-
-            info = info + "; " + isbn;
-        }
-        System.out.println(info);
-
-    }
 
 }
