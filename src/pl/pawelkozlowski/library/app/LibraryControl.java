@@ -1,8 +1,13 @@
 package pl.pawelkozlowski.library.app;
 
+import pl.pawelkozlowski.library.exception.DataExportException;
+import pl.pawelkozlowski.library.exception.DataImportException;
 import pl.pawelkozlowski.library.exception.NoSuchOptionException;
 import pl.pawelkozlowski.library.io.ConsolePrinter;
 import pl.pawelkozlowski.library.io.DataReader;
+import pl.pawelkozlowski.library.io.file.FileManager;
+import pl.pawelkozlowski.library.io.file.FileManagerBuilder;
+import pl.pawelkozlowski.library.io.file.FileType;
 import pl.pawelkozlowski.library.model.Book;
 import pl.pawelkozlowski.library.model.Library;
 import pl.pawelkozlowski.library.model.Magazine;
@@ -14,8 +19,20 @@ public class LibraryControl {
 
 private ConsolePrinter printer = new ConsolePrinter();
     private DataReader dataReader = new DataReader(printer);
+    private FileManager fileManager;
     private Library library = new Library();
 
+    public LibraryControl() {
+        fileManager = new FileManagerBuilder(printer, dataReader).build();
+        try {
+            library = fileManager.importData();
+            printer.printLine("Zaimportowano dane z piku");
+        } catch (DataImportException e) {
+        printer.printLine(e.getMessage());
+        printer.printLine("Zainicjonowano nową bazę.");
+        library = new Library();
+        }
+    }
     public void controlLoop() {
         Option option;
 
@@ -80,6 +97,12 @@ printer.printLine(e.getMessage());
     }
 
     private void exit() {
+        try {
+        fileManager.exportData(library);
+        printer.printLine("Export danych do pliku zakończony powodzeniem");
+        } catch (DataExportException e) {
+            printer.printLine(e.getMessage());
+        }
         printer.printLine("Koniec programu");
         dataReader.close();
     }

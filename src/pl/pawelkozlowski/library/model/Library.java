@@ -1,6 +1,8 @@
 package pl.pawelkozlowski.library.model;
 
-public class Library {
+import java.io.Serializable;
+
+public class Library implements Serializable {
 
 
     private final static int MAX_PUBLICATIONS = 2000;
