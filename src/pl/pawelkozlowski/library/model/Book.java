@@ -1,6 +1,7 @@
 package pl.pawelkozlowski.library.model;
 
 public class Book extends Publication{
+    public static final String TYPE = "książka";
     private String author;
     private int pages;
     private String isbn;
@@ -43,6 +44,17 @@ public class Book extends Publication{
 
         this.isbn = isbn;
     }
+
+        @Override
+        public String toCsv() {
+            return (TYPE + ";") +
+                    getTitle() + ";" +
+                    getPublisher() + ";" +
+                    getYear() + ";" +
+                    author + ";" +
+                    pages + ";" +
+                    isbn + "";
+        }
 
 
     public String toString() {
