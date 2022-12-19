@@ -13,7 +13,9 @@ import pl.pawelkozlowski.library.model.Book;
 import pl.pawelkozlowski.library.model.Library;
 import pl.pawelkozlowski.library.model.Magazine;
 import pl.pawelkozlowski.library.model.Publication;
+import pl.pawelkozlowski.library.model.comparator.AlphabeticalComparator;
 
+import java.util.Arrays;
 import java.util.InputMismatchException;
 
 public class LibraryControl {
@@ -87,8 +89,8 @@ printer.printLine(e.getMessage());
         }
 
     private void printMagazines() {
-        Publication[] publications = library.getPublications();
-            printer.printMagazines(publications);
+        Publication[] publications = getSortedPublications();
+        printer.printMagazines(publications);
             
         }
 
@@ -128,8 +130,14 @@ printer.printLine(e.getMessage());
     }
 
     private void printBooks() {
-        Publication[] publications = library.getPublications();
+        Publication[] publications = getSortedPublications();
         printer.printBooks(publications);
+    }
+
+    private Publication[] getSortedPublications() {
+        Publication[] publications = library.getPublications();
+        Arrays.sort(publications, new AlphabeticalComparator());
+        return publications;
     }
 
     private void addBook() {
