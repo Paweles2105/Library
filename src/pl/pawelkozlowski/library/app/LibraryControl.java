@@ -2,6 +2,7 @@ package pl.pawelkozlowski.library.app;
 
 import pl.pawelkozlowski.library.exception.DataExportException;
 import pl.pawelkozlowski.library.exception.DataImportException;
+import pl.pawelkozlowski.library.exception.InvalidDataException;
 import pl.pawelkozlowski.library.exception.NoSuchOptionException;
 import pl.pawelkozlowski.library.io.ConsolePrinter;
 import pl.pawelkozlowski.library.io.DataReader;
@@ -27,7 +28,7 @@ private ConsolePrinter printer = new ConsolePrinter();
         try {
             library = fileManager.importData();
             printer.printLine("Zaimportowano dane z piku");
-        } catch (DataImportException e) {
+        } catch (DataImportException | InvalidDataException e) {
         printer.printLine(e.getMessage());
         printer.printLine("Zainicjonowano nową bazę.");
         library = new Library();
@@ -88,7 +89,7 @@ printer.printLine(e.getMessage());
     private void addMagazine() {
         try {
         Magazine magazine = dataReader.readAndCreateMagazine();
-        library.addMagazine(magazine);
+        library.addPublication(magazine);
     } catch (InputMismatchException e) {
         printer.printLine("Nie udało się utworzyć magazynu, niepoprawne dane.");
     } catch (ArrayIndexOutOfBoundsException e) {
@@ -116,7 +117,7 @@ printer.printLine(e.getMessage());
         try {
 
             Book book = dataReader.readAndCreateBook();
-            library.addBook(book);
+            library.addPublication(book);
         } catch (InputMismatchException e) {
             printer.printLine("Nie udało się utworzyć książki, niepoprawne dane.");
         } catch (ArrayIndexOutOfBoundsException e) {
