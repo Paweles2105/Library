@@ -53,6 +53,12 @@ private ConsolePrinter printer = new ConsolePrinter();
                 case PRINT_MAGAZINES:
                     printMagazines();
                     break;
+                case DELETE_BOOK:
+                    deleteBook();
+                    break;
+                case DELETE_MAGAZINE:
+                    deleteMagazine();
+                    break;
                 case EXIT:
                     exit();
                     break;
@@ -62,6 +68,7 @@ private ConsolePrinter printer = new ConsolePrinter();
             }
         } while (option != Option.EXIT);
     }
+
 
     private Option getOption() {
         boolean optionOk = false;
@@ -97,6 +104,18 @@ printer.printLine(e.getMessage());
     }
     }
 
+    private void deleteMagazine() {
+        try {
+            Magazine magazine = dataReader.readAndCreateMagazine();
+            if (library.removePublication(magazine))
+                printer.printLine("Usunięto magazyn.");
+            else
+                printer.printLine("Brak wskazanego magazynu.");
+        } catch (InputMismatchException e) {
+            printer.printLine("Nie udało się utworzyć magazynu, niepoprawne dane");
+        }
+    }
+
     private void exit() {
         try {
         fileManager.exportData(library);
@@ -125,6 +144,18 @@ printer.printLine(e.getMessage());
         }
     }
 
+    private void deleteBook() {
+        try {
+            Book book = dataReader.readAndCreateBook();
+            if (library.removePublication(book))
+                printer.printLine("Usunięto książkę.");
+            else
+                printer.printLine("Brak wskazanej książki.");
+        } catch (InputMismatchException e) {
+            printer.printLine("Nie udało się utworzyć książki, niepoprawne dane");
+        }
+    }
+
     private void printOptions() {
         printer.printLine("Wybierz opcję:");
         for (Option option : Option.values()) {
@@ -138,7 +169,9 @@ printer.printLine(e.getMessage());
         ADD_BOOKS(1, "dodanie nowej książki"),
         ADD_MAGAZINES(2, "dodanie nowego magazynu"),
         PRINT_BOOKS(3, "wyświetl dostępne książki"),
-        PRINT_MAGAZINES(4, "wyświetl dostępne magazyny");
+        PRINT_MAGAZINES(4, "wyświetl dostępne magazyny"),
+        DELETE_BOOK(5, "Usuń książkę"),
+        DELETE_MAGAZINE(6, "Usuń magazyn");
 
         private final int value;
         private final String description;
