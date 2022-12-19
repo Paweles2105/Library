@@ -14,7 +14,7 @@ public class Library implements Serializable {
         for (int i = 0; i < result.length; i++) {
             result[i]=publications[i];
         }
-        return publications;
+        return result;
     }
 
     public void addBook(Book book) {
