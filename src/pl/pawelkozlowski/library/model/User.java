@@ -3,7 +3,7 @@ package pl.pawelkozlowski.library.model;
 import java.io.Serializable;
 import java.util.Objects;
 
-abstract class User implements Serializable {
+abstract class User implements Serializable,  CsvConvertible{
     private String firstName;
     private String lastName;
     private String pesel;
@@ -38,7 +38,6 @@ abstract class User implements Serializable {
         this.pesel = pesel;
     }
 
-    public abstract String toCsv();
 
     @Override
     public boolean equals(Object o) {
