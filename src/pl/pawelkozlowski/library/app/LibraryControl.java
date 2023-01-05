@@ -6,7 +6,6 @@ import pl.pawelkozlowski.library.io.DataReader;
 import pl.pawelkozlowski.library.io.file.FileManager;
 import pl.pawelkozlowski.library.io.file.FileManagerBuilder;
 import pl.pawelkozlowski.library.model.*;
-import pl.pawelkozlowski.library.model.comparator.AlphabeticalTitleComparator;
 
 import java.util.Comparator;
 import java.util.InputMismatchException;
